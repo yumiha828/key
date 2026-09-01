@@ -282,23 +282,23 @@ button{font:inherit;font-family:"Zen Kaku Gothic New","Hiragino Sans",sans-serif
         <legend>よかったと感じた点はありますか？</legend>
         <p class="hint">いくつでも選べます。当てはまらないものは選ばないでください。</p>
         <div class="opts" data-name="good">
+          <label class="opt multi"><input type="checkbox" name="good" value="staff"><span class="mark"></span>スタッフの感じがよかった</label>
+          <label class="opt multi"><input type="checkbox" name="good" value="latenight"><span class="mark"></span>深夜でも対応してくれた</label>
+          <label class="opt multi"><input type="checkbox" name="good" value="quick"><span class="mark"></span>作業が早かった</label>
+          <label class="opt multi"><input type="checkbox" name="good" value="nodamage"><span class="mark"></span>鍵を壊さずに開けてくれた</label>
           <label class="opt multi"><input type="checkbox" name="good" value="phone"><span class="mark"></span>電話での対応が丁寧だった</label>
           <label class="opt multi"><input type="checkbox" name="good" value="explain"><span class="mark"></span>作業前に説明してくれた</label>
           <label class="opt multi"><input type="checkbox" name="good" value="price"><span class="mark"></span>料金が明確で、追加請求がなかった</label>
-          <label class="opt multi"><input type="checkbox" name="good" value="nodamage"><span class="mark"></span>鍵を壊さずに開けてくれた</label>
-          <label class="opt multi"><input type="checkbox" name="good" value="quick"><span class="mark"></span>作業が早かった</label>
-          <label class="opt multi"><input type="checkbox" name="good" value="staff"><span class="mark"></span>スタッフの感じがよかった</label>
-          <label class="opt multi"><input type="checkbox" name="good" value="latenight"><span class="mark"></span>深夜でも対応してくれた</label>
           <label class="opt multi"><input type="checkbox" name="good" value="payment"><span class="mark"></span>支払い方法を選べた</label>
         </div>
       </fieldset>
     </section>
 
     <section class="step" data-step="5">
-      <p class="step-title">最後に、ひとことあれば</p>
-      <p class="hint">なくても大丈夫です。ご自身の言葉が入ると、伝わりやすい口コミになります。</p>
+      <p class="step-title">最後に、応援の一言などあれば</p>
+      <p class="hint">なくても大丈夫です。</p>
       <label class="sr" for="freeText">自由記入</label>
-      <textarea id="freeText" name="freeText" rows="4" placeholder="例：夜中に一人で困っていたので、本当に心強かったです。"></textarea>
+      <textarea id="freeText" name="freeText" rows="4" placeholder="例：夜中に一人で困っていたので、本当に心強かったです。これからも頑張ってください。"></textarea>
     </section>
 
     <section class="step" data-step="6">
@@ -415,8 +415,13 @@ const CLOSE = {
   warm:  ["またもしもの時があればお願いしたいです。ありがとうございました。","突然のことで不安でしたが、お願いして本当によかったです。ありがとうございました。"]
 };
 
+/* 画面の並び順とは別に、文案へ入れる優先順位を持たせる。
+   4つ以上選ばれた場合、上位のものから文案に採用する。 */
+const DRAFT_PRIORITY = ["price","nodamage","latenight","quick","staff","phone","explain","payment"];
+
 function joinGood(list, max){
-  const chosen = list.slice(0, max).map(k => pick(GOOD[k]));
+  const ordered = [...list].sort((a,b) => DRAFT_PRIORITY.indexOf(a) - DRAFT_PRIORITY.indexOf(b));
+  const chosen = ordered.slice(0, max).map(k => pick(GOOD[k]));
   if(!chosen.length) return "";
   if(chosen.length === 1) return chosen[0] + pick(ONE_TAIL);
   const last = chosen.pop();
