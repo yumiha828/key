@@ -8,7 +8,8 @@ URLを変えたいときは TOOL_URL を書き換えて実行するだけ。
 
 出力：
     review-assist/card-print.html … A4に名刺サイズ10枚を並べた印刷用ページ
-    review-assist/qr.svg          … QRコード単体（他の印刷物に使う場合用）
+    review-assist/qr.svg / .png        … カード用QR（下書き支援ツールへ）
+    review-assist/qr-google.svg / .png … Google投稿ページへ直接飛ぶQR
 """
 
 import io
@@ -17,7 +18,12 @@ from pathlib import Path
 import segno
 
 # ── ここだけ書き換えれば作り直せる ──────────────────────
+# カードに載せるQRの飛び先（下書き支援ツール）
 TOOL_URL = "https://japan-unlockservice.com/review-assist/"
+
+# Googleの口コミ投稿ページへ直接飛ぶQR。カードには使わない。
+# HP・請求書・メール署名などに貼る用の予備として出力している。
+GOOGLE_REVIEW_URL = "https://g.page/r/CYvhE1uWUYeMECE/review"
 # ────────────────────────────────────────────────
 
 HERE = Path(__file__).parent
@@ -183,6 +189,11 @@ PAGE = """<!DOCTYPE html>
 """
 
 
+def qr_png(url: str, path: Path) -> None:
+    """印刷物やHPに貼り込む用のPNG。SVGを扱えない場面向け。"""
+    segno.make(url, error="m").save(str(path), scale=12, border=2)
+
+
 def main() -> None:
     svg = qr_svg(TOOL_URL, size_mm=30)
     (HERE / "qr.svg").write_text(svg, encoding="utf-8")
@@ -193,9 +204,17 @@ def main() -> None:
         PAGE.format(cards=cards, url=TOOL_URL), encoding="utf-8"
     )
 
-    print(f"生成しました（リンク先: {TOOL_URL}）")
+    (HERE / "qr-google.svg").write_text(
+        qr_svg(GOOGLE_REVIEW_URL, size_mm=30), encoding="utf-8"
+    )
+
+    qr_png(TOOL_URL, HERE / "qr.png")
+    qr_png(GOOGLE_REVIEW_URL, HERE / "qr-google.png")
+
+    print(f"生成しました（カードのリンク先: {TOOL_URL}）")
     print("  review-assist/card-print.html")
-    print("  review-assist/qr.svg")
+    print("  review-assist/qr.svg / .png        →", TOOL_URL)
+    print("  review-assist/qr-google.svg / .png →", GOOGLE_REVIEW_URL)
 
 
 if __name__ == "__main__":
