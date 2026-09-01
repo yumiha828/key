@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>口コミ下書きサポート｜日本アンロックサービス</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Noto+Sans+JP:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#FBF8F3;
+  --surface:#FFFFFF;
+  --surface-2:#F4EFE6;
+  --ink:#221E18;
+  --ink-2:#6E655A;
+  --line:#E4DCCE;
+  --brass:#9C6B1C;
+  --brass-soft:#F7EFDF;
+  --indigo:#22405F;
+  --ok:#2C6B50;
+  --shadow:0 1px 2px rgba(34,30,24,.05),0 10px 28px rgba(34,30,24,.07);
+  --radius:14px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#15171B;
+    --surface:#1D2026;
+    --surface-2:#262A32;
+    --ink:#F0EBE2;
+    --ink-2:#A79E90;
+    --line:#343947;
+    --brass:#D9A84E;
+    --brass-soft:#2C2618;
+    --indigo:#9DB9D8;
+    --ok:#6FBF97;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#15171B;
+  --surface:#1D2026;
+  --surface-2:#262A32;
+  --ink:#F0EBE2;
+  --ink-2:#A79E90;
+  --line:#343947;
+  --brass:#D9A84E;
+  --brass-soft:#2C2618;
+  --indigo:#9DB9D8;
+  --ok:#6FBF97;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+  font-size:16px;
+  line-height:1.8;
+  -webkit-text-size-adjust:100%;
+}
+h1,h2,legend,.step-title{
+  font-family:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+  font-weight:700;
+  text-wrap:balance;
+  line-height:1.5;
+}
+.wrap{max-width:560px;margin:0 auto;padding:0 18px 140px}
+
+header{padding:26px 0 18px;display:flex;flex-direction:column;gap:6px}
+.eyebrow{
+  font-size:12px;letter-spacing:.14em;font-weight:500;
+  color:var(--brass);text-transform:none;
+}
+h1{font-size:22px;margin:0}
+.lead{margin:2px 0 0;color:var(--ink-2);font-size:14px}
+
+.progress{
+  position:sticky;top:0;z-index:5;
+  background:var(--ground);
+  padding:10px 0 12px;
+  display:flex;align-items:center;gap:10px;
+}
+.bar{flex:1;height:5px;border-radius:3px;background:var(--surface-2);overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--brass);transition:width .35s ease}
+.count{font-size:12px;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:20px 18px;
+}
+.step{display:none;animation:rise .3s ease both}
+.step.active{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .step{animation:none}
+  .bar span{transition:none}
+}
+
+fieldset{border:0;margin:0;padding:0}
+legend,.step-title{font-size:19px;margin:0 0 4px;padding:0}
+.hint{color:var(--ink-2);font-size:13px;margin:0 0 16px}
+
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{
+  display:flex;align-items:center;gap:12px;
+  border:1.5px solid var(--line);
+  border-radius:12px;
+  background:var(--surface);
+  padding:14px 15px;
+  cursor:pointer;
+  font-size:16px;
+  transition:border-color .15s ease,background .15s ease;
+}
+.opt:hover{border-color:var(--brass)}
+.opt input{position:absolute;opacity:0;width:0;height:0}
+.mark{
+  flex:0 0 auto;width:22px;height:22px;border-radius:50%;
+  border:1.5px solid var(--line);
+  display:grid;place-items:center;
+  transition:border-color .15s ease,background .15s ease;
+}
+.opt.multi .mark{border-radius:6px}
+.mark::after{
+  content:"";width:10px;height:10px;border-radius:50%;
+  background:transparent;transition:background .15s ease;
+}
+.opt.multi .mark::after{
+  width:11px;height:6px;border-radius:0;
+  border-left:2.5px solid transparent;border-bottom:2.5px solid transparent;
+  transform:rotate(-45deg) translate(1px,-1px);
+  background:none;
+  transition:border-color .15s ease;
+}
+.opt:has(input:checked){border-color:var(--brass);background:var(--brass-soft)}
+.opt:has(input:checked) .mark{border-color:var(--brass)}
+.opt:has(input:checked) .mark::after{background:var(--brass)}
+.opt.multi:has(input:checked) .mark{background:var(--brass);border-color:var(--brass)}
+.opt.multi:has(input:checked) .mark::after{background:none;border-left-color:var(--surface);border-bottom-color:var(--surface)}
+.opt:has(input:focus-visible){outline:2px solid var(--brass);outline-offset:2px}
+
+textarea{
+  width:100%;font:inherit;color:var(--ink);
+  background:var(--surface);
+  border:1.5px solid var(--line);border-radius:12px;
+  padding:13px 14px;resize:vertical;
+}
+textarea:focus{outline:2px solid var(--brass);outline-offset:1px;border-color:var(--brass)}
+#draft{min-height:220px;line-height:1.9}
+
+.nav{
+  position:fixed;left:0;right:0;bottom:0;
+  background:linear-gradient(to top,var(--ground) 72%,rgba(0,0,0,0));
+  padding:14px 18px calc(16px + env(safe-area-inset-bottom));
+}
+.nav-inner{max-width:560px;margin:0 auto;display:flex;gap:10px}
+button{font:inherit;font-family:"Zen Kaku Gothic New","Hiragino Sans",sans-serif;font-weight:700;cursor:pointer}
+.btn{
+  flex:1;padding:15px 16px;border-radius:12px;border:1.5px solid transparent;
+  background:var(--brass);color:#fff;font-size:16px;
+  transition:opacity .15s ease,transform .1s ease;
+}
+:root[data-theme="dark"] .btn,
+:root:not([data-theme="light"]) .btn{color:#1A1508}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .btn{color:#fff}}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn.ghost{
+  flex:0 0 auto;background:transparent;color:var(--ink-2);
+  border-color:var(--line);padding-inline:18px;
+}
+.btn:focus-visible,.linkbtn:focus-visible{outline:2px solid var(--indigo);outline-offset:2px}
+
+.drafts{display:flex;flex-direction:column;gap:10px;margin:0 0 18px}
+.draft-pick{
+  text-align:left;background:var(--surface);border:1.5px solid var(--line);
+  border-radius:12px;padding:14px 15px;font-weight:400;font-family:inherit;
+  color:var(--ink);font-size:14.5px;line-height:1.85;
+}
+.draft-pick[aria-pressed="true"]{border-color:var(--brass);background:var(--brass-soft)}
+.draft-pick .tag{
+  display:block;font-family:"Zen Kaku Gothic New",sans-serif;font-weight:700;
+  font-size:11px;letter-spacing:.1em;color:var(--brass);margin-bottom:6px;
+}
+
+.notice{
+  background:var(--surface-2);border-radius:12px;
+  padding:13px 15px;font-size:13.5px;line-height:1.75;color:var(--ink-2);
+  margin:16px 0 0;
+}
+.notice strong{color:var(--ink);font-weight:500}
+
+.steps-todo{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.steps-todo li{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:var(--ink-2)}
+.steps-todo .n{
+  flex:0 0 auto;width:22px;height:22px;border-radius:50%;
+  background:var(--indigo);color:var(--surface);
+  font-family:"Zen Kaku Gothic New",sans-serif;font-weight:700;font-size:12px;
+  display:grid;place-items:center;margin-top:3px;
+}
+:root[data-theme="dark"] .steps-todo .n,
+:root:not([data-theme="light"]) .steps-todo .n{color:#15171B}
+
+.divider{height:1px;background:var(--line);margin:26px 0 18px;border:0}
+.alt{font-size:13.5px;color:var(--ink-2);text-align:center;line-height:1.8}
+.alt a{color:var(--indigo);text-decoration:underline;text-underline-offset:3px}
+
+.toast{
+  position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(10px);
+  background:var(--ok);color:#fff;padding:11px 20px;border-radius:999px;
+  font-size:14px;font-weight:500;opacity:0;pointer-events:none;
+  transition:opacity .2s ease,transform .2s ease;z-index:20;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">日本アンロックサービス</p>
+    <h1>ご感想の下書きサポート</h1>
+    <p class="lead">かんたんな質問にお答えいただくと、口コミの文章のたたき台をご用意します。所要時間は1分ほどです。</p>
+  </header>
+
+  <div class="progress">
+    <div class="bar"><span id="barFill"></span></div>
+    <div class="count"><span id="stepNow">1</span> / 5</div>
+  </div>
+
+  <form id="form" class="card">
+
+    <section class="step active" data-step="1">
+      <fieldset>
+        <legend>今回はどのようなことでお困りでしたか？</legend>
+        <p class="hint">当てはまるものを1つお選びください。</p>
+        <div class="opts" data-name="trouble">
+          <label class="opt"><input type="radio" name="trouble" value="lost"><span class="mark"></span>鍵をなくしてしまった</label>
+          <label class="opt"><input type="radio" name="trouble" value="lockout"><span class="mark"></span>鍵を中に置いたまま締め出された</label>
+          <label class="opt"><input type="radio" name="trouble" value="broken"><span class="mark"></span>鍵が回らない・折れた</label>
+          <label class="opt"><input type="radio" name="trouble" value="car"><span class="mark"></span>車の鍵のトラブル</label>
+          <label class="opt"><input type="radio" name="trouble" value="other"><span class="mark"></span>その他の鍵のトラブル</label>
+        </div>
+      </fieldset>
+    </section>
+
+    <section class="step" data-step="2">
+      <fieldset>
+        <legend>ご依頼いただいたのはどの時間帯でしたか？</legend>
+        <p class="hint">おおよそで構いません。</p>
+        <div class="opts" data-name="time">
+          <label class="opt"><input type="radio" name="time" value="midnight"><span class="mark"></span>深夜（0時〜5時ごろ）</label>
+          <label class="opt"><input type="radio" name="time" value="night"><span class="mark"></span>夜（18時〜24時ごろ）</label>
+          <label class="opt"><input type="radio" name="time" value="morning"><span class="mark"></span>早朝（5時〜9時ごろ）</label>
+          <label class="opt"><input type="radio" name="time" value="day"><span class="mark"></span>日中</label>
+        </div>
+      </fieldset>
+    </section>
+
+    <section class="step" data-step="3">
+      <fieldset>
+        <legend>到着までの時間はいかがでしたか？</legend>
+        <p class="hint">実際に感じたままをお選びください。</p>
+        <div class="opts" data-name="speed">
+          <label class="opt"><input type="radio" name="speed" value="fast"><span class="mark"></span>30分ほどで来てくれた</label>
+          <label class="opt"><input type="radio" name="speed" value="normal"><span class="mark"></span>1時間ほどで来てくれた</label>
+          <label class="opt"><input type="radio" name="speed" value="waited"><span class="mark"></span>少し待ったが、連絡をもらえたので安心できた</label>
+          <label class="opt"><input type="radio" name="speed" value="skip"><span class="mark"></span>特に触れない</label>
+        </div>
+      </fieldset>
+    </section>
+
+    <section class="step" data-step="4">
+      <fieldset>
+        <legend>よかったと感じた点はありますか？</legend>
+        <p class="hint">いくつでも選べます。当てはまらないものは選ばないでください。</p>
+        <div class="opts" data-name="good">
+          <label class="opt multi"><input type="checkbox" name="good" value="phone"><span class="mark"></span>電話での対応が丁寧だった</label>
+          <label class="opt multi"><input type="checkbox" name="good" value="explain"><span class="mark"></span>作業前に説明してくれた</label>
+          <label class="opt multi"><input type="checkbox" name="good" value="price"><span class="mark"></span>料金が明確で、追加請求がなかった</label>
+          <label class="opt multi"><input type="checkbox" name="good" value="nodamage"><span class="mark"></span>鍵を壊さずに開けてくれた</label>
+          <label class="opt multi"><input type="checkbox" name="good" value="quick"><span class="mark"></span>作業が早かった</label>
+          <label class="opt multi"><input type="checkbox" name="good" value="staff"><span class="mark"></span>スタッフの感じがよかった</label>
+          <label class="opt multi"><input type="checkbox" name="good" value="latenight"><span class="mark"></span>深夜でも対応してくれた</label>
+          <label class="opt multi"><input type="checkbox" name="good" value="payment"><span class="mark"></span>支払い方法を選べた</label>
+        </div>
+      </fieldset>
+    </section>
+
+    <section class="step" data-step="5">
+      <p class="step-title">最後に、ひとことあれば</p>
+      <p class="hint">なくても大丈夫です。ご自身の言葉が入ると、伝わりやすい口コミになります。</p>
+      <label class="sr" for="freeText">自由記入</label>
+      <textarea id="freeText" name="freeText" rows="4" placeholder="例：夜中に一人で困っていたので、本当に心強かったです。"></textarea>
+    </section>
+
+    <section class="step" data-step="6">
+      <p class="step-title">下書きができました</p>
+      <p class="hint">お好きなものを1つ選び、ご自身の言葉に直してからご投稿ください。</p>
+
+      <div class="drafts" id="drafts"></div>
+
+      <label class="sr" for="draft">口コミ本文</label>
+      <textarea id="draft" rows="9"></textarea>
+
+      <div class="notice">
+        <strong>投稿の前に必ずご確認ください。</strong><br>
+        これはあくまで文章のたたき台です。実際のご感想と違うところは書き換えて、お客様ご自身の言葉としてご投稿ください。星の数もお客様のご判断でお選びください。
+      </div>
+
+      <ol class="steps-todo">
+        <li><span class="n">1</span><span>「文章をコピー」を押す</span></li>
+        <li><span class="n">2</span><span>「Googleの投稿画面を開く」を押す</span></li>
+        <li><span class="n">3</span><span>入力欄を長押しして貼り付け、星を選んで投稿</span></li>
+      </ol>
+
+      <hr class="divider">
+      <p class="alt">
+        気になった点・至らなかった点がありましたら、<br>
+        投稿の前にぜひ直接お聞かせください。<br>
+        <a href="tel:0000000000" id="telLink">お電話でのご連絡はこちら</a>
+      </p>
+    </section>
+
+  </form>
+</div>
+
+<div class="nav">
+  <div class="nav-inner">
+    <button type="button" class="btn ghost" id="backBtn">戻る</button>
+    <button type="button" class="btn" id="nextBtn" disabled>次へ</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite">コピーしました</div>
+
+<script>
+/* ── 設置時に書き換える3か所 ───────────────────────────── */
+const GOOGLE_REVIEW_URL = "https://search.google.com/local/writereview?placeid=REPLACE_WITH_PLACE_ID";
+const CONTACT_TEL = "0000000000";
+/* ──────────────────────────────────────────────────── */
+
+document.getElementById("telLink").href = "tel:" + CONTACT_TEL;
+
+const LAST_STEP = 6;
+let step = 1;
+let picked = 0;
+let drafts = [];
+
+const steps = [...document.querySelectorAll(".step")];
+const nextBtn = document.getElementById("nextBtn");
+const backBtn = document.getElementById("backBtn");
+const barFill = document.getElementById("barFill");
+const stepNow = document.getElementById("stepNow");
+const draftBox = document.getElementById("draft");
+
+const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+
+function answers(){
+  const one = n => document.querySelector(`input[name="${n}"]:checked`)?.value || "";
+  return {
+    trouble: one("trouble"),
+    time: one("time"),
+    speed: one("speed"),
+    good: [...document.querySelectorAll('input[name="good"]:checked')].map(i => i.value),
+    free: document.getElementById("freeText").value.trim()
+  };
+}
+
+const TROUBLE = {
+  lost:    ["鍵をなくしてしまい","出先で鍵を落としてしまい","鍵が見当たらなくなり"],
+  lockout: ["鍵を部屋に置いたまま締め出されてしまい","うっかり鍵を中に置いたまま外に出てしまい"],
+  broken:  ["鍵が回らなくなってしまい","鍵が抜けなくなってしまい"],
+  car:     ["車の鍵のトラブルで","車の鍵が開けられなくなり"],
+  other:   ["鍵のことで困ってしまい","急な鍵のトラブルで"]
+};
+const TIME = {
+  midnight:["深夜に","夜中に"],
+  night:   ["夜遅くに","夜に"],
+  morning: ["早朝に","朝早くに"],
+  day:     ["日中に",""]
+};
+const INTRO = [
+  (t,w) => `${w}${t}、慌てて電話しました。`,
+  (t,w) => `${w}${t}、どうしていいか分からず連絡させていただきました。`,
+  (t,w) => `${w}${t}、困り果てた末にこちらへお願いしました。`
+];
+const SPEED = {
+  fast:   ["電話をしてから30分ほどで到着してくれて、本当に助かりました。","思っていたよりずっと早く駆けつけてくれました。"],
+  normal: ["1時間ほどで来ていただけました。","電話から1時間ほどで到着し、待たされている感覚はありませんでした。"],
+  waited: ["到着まで少し時間はありましたが、途中で連絡をいただけたので不安なく待てました。","混み合っていたようですが、状況をこまめに知らせてもらえたので安心して待てました。"],
+  skip:   [""]
+};
+const GOOD = {
+  phone:    ["電話の時点で落ち着いて話を聞いてもらえた","最初の電話の対応がとても丁寧だった"],
+  explain:  ["作業に入る前に手順と料金の説明があった","何をするのか先に説明してもらえた"],
+  price:    ["聞いていた金額のままで、あとから追加の請求もなかった","料金がはっきりしていて安心できた"],
+  nodamage: ["鍵を壊さずに開けてもらえた","こちらの鍵を傷めずに対応してもらえた"],
+  quick:    ["作業自体はあっという間だった","開けるまでが本当に早かった"],
+  staff:    ["スタッフの方の感じがよかった","対応してくださった方が親切だった"],
+  latenight:["こんな時間なのに嫌な顔ひとつされなかった","深夜にもかかわらず対応してもらえた"],
+  payment:  ["支払い方法を選べたのも助かった","現金以外でも支払えて助かった"]
+};
+const ONE_TAIL = ["のがありがたかったです。","のが本当に助かりました。","のが印象に残っています。"];
+const LIST_TAIL = ["ことが、とてもありがたかったです。","ことが、何より安心できました。","ことが強く印象に残りました。"];
+const CLOSE = {
+  plain: ["同じように困っている方には安心しておすすめできると思います。","鍵のことで困ったら、次もこちらにお願いしようと思います。"],
+  warm:  ["またもしもの時があればお願いしたいです。ありがとうございました。","突然のことで不安でしたが、お願いして本当によかったです。ありがとうございました。"]
+};
+
+function joinGood(list, max){
+  const chosen = list.slice(0, max).map(k => pick(GOOD[k]));
+  if(!chosen.length) return "";
+  if(chosen.length === 1) return chosen[0] + pick(ONE_TAIL);
+  const last = chosen.pop();
+  return chosen.join("こと、") + "こと、そして" + last + pick(LIST_TAIL);
+}
+
+/* 文案は3つとも構造を変える：短め／しっかり／気持ちを添えて */
+function buildDraft(a, style){
+  const parts = [];
+  parts.push(pick(INTRO)(pick(TROUBLE[a.trouble] || TROUBLE.other), pick(TIME[a.time] || [""])));
+
+  if(style !== "short"){
+    const sp = pick(SPEED[a.speed] || SPEED.skip);
+    if(sp) parts.push(sp);
+  }
+
+  const g = joinGood(a.good, style === "short" ? 2 : 3);
+  if(g) parts.push(g);
+
+  if(a.free && style !== "short") parts.push(a.free.replace(/\s+/g, " "));
+
+  parts.push(pick(style === "warm" ? CLOSE.warm : CLOSE.plain));
+  return parts.join("");
+}
+
+function uniqueDrafts(a){
+  const styles = ["short", "full", "warm"];
+  const out = [];
+  styles.forEach(s => {
+    let d = "";
+    for(let i = 0; i < 20; i++){
+      d = buildDraft(a, s);
+      if(!out.includes(d)) break;
+    }
+    out.push(d);
+  });
+  return out;
+}
+
+const TAGS = ["文案1　短め", "文案2　しっかり", "文案3　気持ちを添えて"];
+
+function renderDrafts(){
+  drafts = uniqueDrafts(answers());
+  const box = document.getElementById("drafts");
+  box.innerHTML = "";
+  drafts.forEach((text, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "draft-pick";
+    b.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+    b.innerHTML = `<span class="tag"></span>`;
+    b.querySelector(".tag").textContent = TAGS[i] || `${i + 1}案`;
+    b.append(document.createTextNode(text));
+    b.addEventListener("click", () => {
+      picked = i;
+      [...box.children].forEach((c, j) => c.setAttribute("aria-pressed", String(j === i)));
+      draftBox.value = drafts[i];
+    });
+    box.append(b);
+  });
+  picked = 0;
+  draftBox.value = drafts[0] || "";
+}
+
+function canAdvance(){
+  if(step === 1) return !!answers().trouble;
+  if(step === 2) return !!answers().time;
+  if(step === 3) return !!answers().speed;
+  return true;
+}
+
+function render(){
+  steps.forEach(s => s.classList.toggle("active", Number(s.dataset.step) === step));
+  barFill.style.width = Math.round((step - 1) / LAST_STEP * 100 + 100 / LAST_STEP) + "%";
+  stepNow.textContent = Math.min(step, 5);
+  document.querySelector(".count").hidden = step === LAST_STEP;
+  backBtn.hidden = step === 1;
+  nextBtn.disabled = !canAdvance();
+  nextBtn.textContent =
+    step === 5 ? "口コミの下書きを作る" :
+    step === LAST_STEP ? "文章をコピー" : "次へ";
+  window.scrollTo({ top: 0, behavior: "instant" });
+}
+
+document.getElementById("form").addEventListener("change", () => {
+  nextBtn.disabled = !canAdvance();
+});
+
+nextBtn.addEventListener("click", async () => {
+  if(step === LAST_STEP){
+    await copyAndGo();
+    return;
+  }
+  if(!canAdvance()) return;
+  step++;
+  if(step === LAST_STEP) renderDrafts();
+  render();
+});
+
+backBtn.addEventListener("click", () => {
+  if(step > 1) step--;
+  render();
+});
+
+function toast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+async function copyAndGo(){
+  const text = draftBox.value.trim();
+  if(!text) return;
+  let copied = false;
+  try{
+    await navigator.clipboard.writeText(text);
+    copied = true;
+  }catch(e){
+    draftBox.focus();
+    draftBox.setSelectionRange(0, draftBox.value.length);
+    try{ copied = document.execCommand("copy"); }catch(e2){ copied = false; }
+  }
+  toast(copied ? "コピーしました。投稿画面で貼り付けてください" : "文章を長押しでコピーしてください");
+  nextBtn.textContent = "Googleの投稿画面を開く";
+  nextBtn.onclick = () => window.open(GOOGLE_REVIEW_URL, "_blank", "noopener");
+}
+
+render();
+</script>
+</body>
+</html>
