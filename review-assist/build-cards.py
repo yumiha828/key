@@ -19,7 +19,7 @@ import segno
 
 # ── ここだけ書き換えれば作り直せる ──────────────────────
 # カードに載せるQRの飛び先（下書き支援ツール）
-TOOL_URL = "https://japan-unlockservice.com/review-assist/"
+TOOL_URL = "https://japan-unlock-review.netlify.app"
 
 # Googleの口コミ投稿ページへ直接飛ぶQR。カードには使わない。
 # HP・請求書・メール署名などに貼る用の予備として出力している。
