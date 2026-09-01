@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>口コミQRカード 印刷用｜日本アンロックサービス</title>
+<style>
+  @page { size: A4; margin: 0; }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #EDEAE4;
+    font-family: "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+    color: #221E18;
+  }
+
+  /* 画面で見るときだけ出る操作説明。印刷には出ない */
+  .screen-only {
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 20px 18px;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .screen-only h1 { font-size: 17px; margin: 0 0 8px; }
+  .screen-only p { margin: 0 0 6px; color: #554E45; }
+  .screen-only code {
+    background: #fff; padding: 1px 6px; border-radius: 4px;
+    font-size: 13px; word-break: break-all;
+  }
+
+  .sheet {
+    width: 210mm;
+    height: 297mm;
+    margin: 0 auto;
+    padding: 11mm 14mm;
+    background: #fff;
+    display: grid;
+    grid-template-columns: repeat(2, 91mm);
+    grid-template-rows: repeat(5, 55mm);
+    gap: 0;
+  }
+
+  .card {
+    width: 91mm;
+    height: 55mm;
+    padding: 5mm 5mm 4mm;
+    display: flex;
+    align-items: center;
+    gap: 4.5mm;
+    outline: 0.2mm dashed #C9C2B6;   /* 裁断ガイド。境界を共有させるため outline */
+    outline-offset: -0.1mm;
+  }
+
+  .qr { flex: 0 0 auto; line-height: 0; }
+  .qr svg { display: block; }
+
+  .body { flex: 1 1 auto; min-width: 0; }
+
+  .lead {
+    margin: 0 0 1.8mm;
+    font-size: 10.5pt;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: .02em;
+  }
+
+  .steps {
+    margin: 0 0 1.8mm;
+    padding-left: 4.4mm;
+    font-size: 7.2pt;
+    line-height: 1.5;
+    color: #4A443C;
+  }
+  .steps li { margin: 0; }
+
+  .note {
+    margin: 0 0 1.8mm;
+    font-size: 6.2pt;
+    line-height: 1.45;
+    color: #6E665A;
+  }
+
+  .brand {
+    margin: 0;
+    padding-top: 1.3mm;
+    border-top: 0.2mm solid #E0D9CC;
+    font-size: 7pt;
+    line-height: 1.3;
+    letter-spacing: .04em;
+    color: #8A6019;
+  }
+  .url {
+    margin: 0.3mm 0 0;
+    font-size: 5.6pt;
+    line-height: 1.3;
+    color: #9C948A;
+  }
+
+  @media print {
+    body { background: #fff; }
+    .screen-only { display: none; }
+    .sheet { margin: 0; page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<div class="screen-only">
+  <h1>口コミQRカード（名刺サイズ10枚／A4）</h1>
+  <p>このページをそのまま印刷してください。用紙はA4、余白なし（等倍100%）の設定にします。破線が裁断位置です。</p>
+  <p>QRコードのリンク先： <code>https://japan-unlockservice.com/review-assist/</code></p>
+  <p>URLを変える場合は <code>review-assist/build-cards.py</code> の TOOL_URL を書き換えて再実行してください。</p>
+</div>
+
+<div class="sheet">
+    <div class="card">
+      <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" width="30.0mm" height="30.0mm" viewBox="0 0 30.0 30.0"><path transform="scale(0.8108108108108109)" stroke="#000" d="M2 2.5h7m3 0h5m3 0h1m4 0h2m1 0h7m-33 1h1m5 0h1m4 0h1m1 0h2m4 0h1m2 0h1m1 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h2m1 0h1m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h3m2 0h2m4 0h1m5 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h3m3 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h6m1 0h2m2 0h1m2 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m1 0h3m1 0h1m1 0h1m-23 1h1m2 0h1m1 0h1m1 0h3m1 0h2m2 0h2m1 0h1m1 0h5m1 0h2m1 0h1m-30 1h2m4 0h2m1 0h2m1 0h2m1 0h2m4 0h2m1 0h1m3 0h3m-32 1h3m1 0h1m1 0h1m4 0h3m1 0h2m1 0h1m1 0h1m2 0h4m2 0h1m1 0h1m-32 1h2m1 0h2m4 0h1m3 0h1m3 0h3m1 0h1m1 0h1m1 0h1m5 0h1m-31 1h4m1 0h2m1 0h1m1 0h3m1 0h1m2 0h1m2 0h1m2 0h3m1 0h2m1 0h1m-30 1h1m1 0h1m2 0h1m2 0h1m3 0h1m2 0h2m4 0h1m1 0h1m1 0h1m2 0h1m-30 1h1m2 0h5m1 0h2m1 0h2m1 0h2m2 0h2m1 0h1m1 0h2m3 0h2m-30 1h4m2 0h2m6 0h1m1 0h1m2 0h1m2 0h3m-27 1h1m1 0h1m1 0h3m1 0h3m2 0h2m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m-32 1h6m1 0h2m1 0h5m1 0h2m3 0h1m1 0h1m1 0h1m3 0h3m-32 1h1m3 0h1m1 0h1m2 0h2m1 0h7m1 0h2m1 0h1m1 0h3m1 0h1m1 0h1m-25 1h4m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m4 0h1m-31 1h2m1 0h3m1 0h2m1 0h2m3 0h1m1 0h4m3 0h1m1 0h2m2 0h1m-33 1h6m4 0h1m1 0h3m6 0h1m1 0h1m3 0h1m1 0h3m-30 1h1m1 0h1m1 0h3m1 0h2m2 0h1m1 0h1m3 0h1m2 0h2m1 0h1m4 0h1m-29 1h1m1 0h1m1 0h2m2 0h1m2 0h1m1 0h2m1 0h1m1 0h4m1 0h4m2 0h1m-33 1h5m1 0h3m2 0h2m1 0h2m1 0h6m1 0h5m-21 1h1m2 0h1m4 0h1m6 0h2m3 0h1m1 0h1m-31 1h7m3 0h6m2 0h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m2 0h1m1 0h2m3 0h1m1 0h4m2 0h1m3 0h1m3 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h1m4 0h2m1 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h2m2 0h6m2 0h4m1 0h4m1 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m2 0h5m1 0h2m1 0h1m2 0h5m-31 1h1m5 0h1m1 0h3m2 0h1m2 0h4m1 0h4m-25 1h7m2 0h2m2 0h1m2 0h10m6 0h1"/></svg></div>
+      <div class="body">
+        <p class="lead">ご感想を<br>お聞かせください</p>
+        <ol class="steps">
+          <li>カメラでQRを読み取る</li>
+          <li>かんたんな質問に答える</li>
+          <li>口コミの文章ができます</li>
+        </ol>
+        <p class="note">所要およそ60秒です。<br>投稿されるかどうかも、星の数も、<br>お客様のご判断でお決めください。</p>
+        <p class="brand">日本アンロックサービス株式会社</p>
+        <p class="url">japan-unlockservice.com/review-assist</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" width="30.0mm" height="30.0mm" viewBox="0 0 30.0 30.0"><path transform="scale(0.8108108108108109)" stroke="#000" d="M2 2.5h7m3 0h5m3 0h1m4 0h2m1 0h7m-33 1h1m5 0h1m4 0h1m1 0h2m4 0h1m2 0h1m1 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h2m1 0h1m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h3m2 0h2m4 0h1m5 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h3m3 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h6m1 0h2m2 0h1m2 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m1 0h3m1 0h1m1 0h1m-23 1h1m2 0h1m1 0h1m1 0h3m1 0h2m2 0h2m1 0h1m1 0h5m1 0h2m1 0h1m-30 1h2m4 0h2m1 0h2m1 0h2m1 0h2m4 0h2m1 0h1m3 0h3m-32 1h3m1 0h1m1 0h1m4 0h3m1 0h2m1 0h1m1 0h1m2 0h4m2 0h1m1 0h1m-32 1h2m1 0h2m4 0h1m3 0h1m3 0h3m1 0h1m1 0h1m1 0h1m5 0h1m-31 1h4m1 0h2m1 0h1m1 0h3m1 0h1m2 0h1m2 0h1m2 0h3m1 0h2m1 0h1m-30 1h1m1 0h1m2 0h1m2 0h1m3 0h1m2 0h2m4 0h1m1 0h1m1 0h1m2 0h1m-30 1h1m2 0h5m1 0h2m1 0h2m1 0h2m2 0h2m1 0h1m1 0h2m3 0h2m-30 1h4m2 0h2m6 0h1m1 0h1m2 0h1m2 0h3m-27 1h1m1 0h1m1 0h3m1 0h3m2 0h2m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m-32 1h6m1 0h2m1 0h5m1 0h2m3 0h1m1 0h1m1 0h1m3 0h3m-32 1h1m3 0h1m1 0h1m2 0h2m1 0h7m1 0h2m1 0h1m1 0h3m1 0h1m1 0h1m-25 1h4m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m4 0h1m-31 1h2m1 0h3m1 0h2m1 0h2m3 0h1m1 0h4m3 0h1m1 0h2m2 0h1m-33 1h6m4 0h1m1 0h3m6 0h1m1 0h1m3 0h1m1 0h3m-30 1h1m1 0h1m1 0h3m1 0h2m2 0h1m1 0h1m3 0h1m2 0h2m1 0h1m4 0h1m-29 1h1m1 0h1m1 0h2m2 0h1m2 0h1m1 0h2m1 0h1m1 0h4m1 0h4m2 0h1m-33 1h5m1 0h3m2 0h2m1 0h2m1 0h6m1 0h5m-21 1h1m2 0h1m4 0h1m6 0h2m3 0h1m1 0h1m-31 1h7m3 0h6m2 0h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m2 0h1m1 0h2m3 0h1m1 0h4m2 0h1m3 0h1m3 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h1m4 0h2m1 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h2m2 0h6m2 0h4m1 0h4m1 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m2 0h5m1 0h2m1 0h1m2 0h5m-31 1h1m5 0h1m1 0h3m2 0h1m2 0h4m1 0h4m-25 1h7m2 0h2m2 0h1m2 0h10m6 0h1"/></svg></div>
+      <div class="body">
+        <p class="lead">ご感想を<br>お聞かせください</p>
+        <ol class="steps">
+          <li>カメラでQRを読み取る</li>
+          <li>かんたんな質問に答える</li>
+          <li>口コミの文章ができます</li>
+        </ol>
+        <p class="note">所要およそ60秒です。<br>投稿されるかどうかも、星の数も、<br>お客様のご判断でお決めください。</p>
+        <p class="brand">日本アンロックサービス株式会社</p>
+        <p class="url">japan-unlockservice.com/review-assist</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" width="30.0mm" height="30.0mm" viewBox="0 0 30.0 30.0"><path transform="scale(0.8108108108108109)" stroke="#000" d="M2 2.5h7m3 0h5m3 0h1m4 0h2m1 0h7m-33 1h1m5 0h1m4 0h1m1 0h2m4 0h1m2 0h1m1 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h2m1 0h1m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h3m2 0h2m4 0h1m5 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h3m3 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h6m1 0h2m2 0h1m2 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m1 0h3m1 0h1m1 0h1m-23 1h1m2 0h1m1 0h1m1 0h3m1 0h2m2 0h2m1 0h1m1 0h5m1 0h2m1 0h1m-30 1h2m4 0h2m1 0h2m1 0h2m1 0h2m4 0h2m1 0h1m3 0h3m-32 1h3m1 0h1m1 0h1m4 0h3m1 0h2m1 0h1m1 0h1m2 0h4m2 0h1m1 0h1m-32 1h2m1 0h2m4 0h1m3 0h1m3 0h3m1 0h1m1 0h1m1 0h1m5 0h1m-31 1h4m1 0h2m1 0h1m1 0h3m1 0h1m2 0h1m2 0h1m2 0h3m1 0h2m1 0h1m-30 1h1m1 0h1m2 0h1m2 0h1m3 0h1m2 0h2m4 0h1m1 0h1m1 0h1m2 0h1m-30 1h1m2 0h5m1 0h2m1 0h2m1 0h2m2 0h2m1 0h1m1 0h2m3 0h2m-30 1h4m2 0h2m6 0h1m1 0h1m2 0h1m2 0h3m-27 1h1m1 0h1m1 0h3m1 0h3m2 0h2m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m-32 1h6m1 0h2m1 0h5m1 0h2m3 0h1m1 0h1m1 0h1m3 0h3m-32 1h1m3 0h1m1 0h1m2 0h2m1 0h7m1 0h2m1 0h1m1 0h3m1 0h1m1 0h1m-25 1h4m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m4 0h1m-31 1h2m1 0h3m1 0h2m1 0h2m3 0h1m1 0h4m3 0h1m1 0h2m2 0h1m-33 1h6m4 0h1m1 0h3m6 0h1m1 0h1m3 0h1m1 0h3m-30 1h1m1 0h1m1 0h3m1 0h2m2 0h1m1 0h1m3 0h1m2 0h2m1 0h1m4 0h1m-29 1h1m1 0h1m1 0h2m2 0h1m2 0h1m1 0h2m1 0h1m1 0h4m1 0h4m2 0h1m-33 1h5m1 0h3m2 0h2m1 0h2m1 0h6m1 0h5m-21 1h1m2 0h1m4 0h1m6 0h2m3 0h1m1 0h1m-31 1h7m3 0h6m2 0h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m2 0h1m1 0h2m3 0h1m1 0h4m2 0h1m3 0h1m3 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h1m4 0h2m1 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h2m2 0h6m2 0h4m1 0h4m1 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m2 0h5m1 0h2m1 0h1m2 0h5m-31 1h1m5 0h1m1 0h3m2 0h1m2 0h4m1 0h4m-25 1h7m2 0h2m2 0h1m2 0h10m6 0h1"/></svg></div>
+      <div class="body">
+        <p class="lead">ご感想を<br>お聞かせください</p>
+        <ol class="steps">
+          <li>カメラでQRを読み取る</li>
+          <li>かんたんな質問に答える</li>
+          <li>口コミの文章ができます</li>
+        </ol>
+        <p class="note">所要およそ60秒です。<br>投稿されるかどうかも、星の数も、<br>お客様のご判断でお決めください。</p>
+        <p class="brand">日本アンロックサービス株式会社</p>
+        <p class="url">japan-unlockservice.com/review-assist</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" width="30.0mm" height="30.0mm" viewBox="0 0 30.0 30.0"><path transform="scale(0.8108108108108109)" stroke="#000" d="M2 2.5h7m3 0h5m3 0h1m4 0h2m1 0h7m-33 1h1m5 0h1m4 0h1m1 0h2m4 0h1m2 0h1m1 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h2m1 0h1m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h3m2 0h2m4 0h1m5 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h3m3 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h6m1 0h2m2 0h1m2 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m1 0h3m1 0h1m1 0h1m-23 1h1m2 0h1m1 0h1m1 0h3m1 0h2m2 0h2m1 0h1m1 0h5m1 0h2m1 0h1m-30 1h2m4 0h2m1 0h2m1 0h2m1 0h2m4 0h2m1 0h1m3 0h3m-32 1h3m1 0h1m1 0h1m4 0h3m1 0h2m1 0h1m1 0h1m2 0h4m2 0h1m1 0h1m-32 1h2m1 0h2m4 0h1m3 0h1m3 0h3m1 0h1m1 0h1m1 0h1m5 0h1m-31 1h4m1 0h2m1 0h1m1 0h3m1 0h1m2 0h1m2 0h1m2 0h3m1 0h2m1 0h1m-30 1h1m1 0h1m2 0h1m2 0h1m3 0h1m2 0h2m4 0h1m1 0h1m1 0h1m2 0h1m-30 1h1m2 0h5m1 0h2m1 0h2m1 0h2m2 0h2m1 0h1m1 0h2m3 0h2m-30 1h4m2 0h2m6 0h1m1 0h1m2 0h1m2 0h3m-27 1h1m1 0h1m1 0h3m1 0h3m2 0h2m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m-32 1h6m1 0h2m1 0h5m1 0h2m3 0h1m1 0h1m1 0h1m3 0h3m-32 1h1m3 0h1m1 0h1m2 0h2m1 0h7m1 0h2m1 0h1m1 0h3m1 0h1m1 0h1m-25 1h4m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m4 0h1m-31 1h2m1 0h3m1 0h2m1 0h2m3 0h1m1 0h4m3 0h1m1 0h2m2 0h1m-33 1h6m4 0h1m1 0h3m6 0h1m1 0h1m3 0h1m1 0h3m-30 1h1m1 0h1m1 0h3m1 0h2m2 0h1m1 0h1m3 0h1m2 0h2m1 0h1m4 0h1m-29 1h1m1 0h1m1 0h2m2 0h1m2 0h1m1 0h2m1 0h1m1 0h4m1 0h4m2 0h1m-33 1h5m1 0h3m2 0h2m1 0h2m1 0h6m1 0h5m-21 1h1m2 0h1m4 0h1m6 0h2m3 0h1m1 0h1m-31 1h7m3 0h6m2 0h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m2 0h1m1 0h2m3 0h1m1 0h4m2 0h1m3 0h1m3 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h1m4 0h2m1 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h2m2 0h6m2 0h4m1 0h4m1 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m2 0h5m1 0h2m1 0h1m2 0h5m-31 1h1m5 0h1m1 0h3m2 0h1m2 0h4m1 0h4m-25 1h7m2 0h2m2 0h1m2 0h10m6 0h1"/></svg></div>
+      <div class="body">
+        <p class="lead">ご感想を<br>お聞かせください</p>
+        <ol class="steps">
+          <li>カメラでQRを読み取る</li>
+          <li>かんたんな質問に答える</li>
+          <li>口コミの文章ができます</li>
+        </ol>
+        <p class="note">所要およそ60秒です。<br>投稿されるかどうかも、星の数も、<br>お客様のご判断でお決めください。</p>
+        <p class="brand">日本アンロックサービス株式会社</p>
+        <p class="url">japan-unlockservice.com/review-assist</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" width="30.0mm" height="30.0mm" viewBox="0 0 30.0 30.0"><path transform="scale(0.8108108108108109)" stroke="#000" d="M2 2.5h7m3 0h5m3 0h1m4 0h2m1 0h7m-33 1h1m5 0h1m4 0h1m1 0h2m4 0h1m2 0h1m1 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h2m1 0h1m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h3m2 0h2m4 0h1m5 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h3m3 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h6m1 0h2m2 0h1m2 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m1 0h3m1 0h1m1 0h1m-23 1h1m2 0h1m1 0h1m1 0h3m1 0h2m2 0h2m1 0h1m1 0h5m1 0h2m1 0h1m-30 1h2m4 0h2m1 0h2m1 0h2m1 0h2m4 0h2m1 0h1m3 0h3m-32 1h3m1 0h1m1 0h1m4 0h3m1 0h2m1 0h1m1 0h1m2 0h4m2 0h1m1 0h1m-32 1h2m1 0h2m4 0h1m3 0h1m3 0h3m1 0h1m1 0h1m1 0h1m5 0h1m-31 1h4m1 0h2m1 0h1m1 0h3m1 0h1m2 0h1m2 0h1m2 0h3m1 0h2m1 0h1m-30 1h1m1 0h1m2 0h1m2 0h1m3 0h1m2 0h2m4 0h1m1 0h1m1 0h1m2 0h1m-30 1h1m2 0h5m1 0h2m1 0h2m1 0h2m2 0h2m1 0h1m1 0h2m3 0h2m-30 1h4m2 0h2m6 0h1m1 0h1m2 0h1m2 0h3m-27 1h1m1 0h1m1 0h3m1 0h3m2 0h2m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m-32 1h6m1 0h2m1 0h5m1 0h2m3 0h1m1 0h1m1 0h1m3 0h3m-32 1h1m3 0h1m1 0h1m2 0h2m1 0h7m1 0h2m1 0h1m1 0h3m1 0h1m1 0h1m-25 1h4m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m4 0h1m-31 1h2m1 0h3m1 0h2m1 0h2m3 0h1m1 0h4m3 0h1m1 0h2m2 0h1m-33 1h6m4 0h1m1 0h3m6 0h1m1 0h1m3 0h1m1 0h3m-30 1h1m1 0h1m1 0h3m1 0h2m2 0h1m1 0h1m3 0h1m2 0h2m1 0h1m4 0h1m-29 1h1m1 0h1m1 0h2m2 0h1m2 0h1m1 0h2m1 0h1m1 0h4m1 0h4m2 0h1m-33 1h5m1 0h3m2 0h2m1 0h2m1 0h6m1 0h5m-21 1h1m2 0h1m4 0h1m6 0h2m3 0h1m1 0h1m-31 1h7m3 0h6m2 0h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m2 0h1m1 0h2m3 0h1m1 0h4m2 0h1m3 0h1m3 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h1m4 0h2m1 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h2m2 0h6m2 0h4m1 0h4m1 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m2 0h5m1 0h2m1 0h1m2 0h5m-31 1h1m5 0h1m1 0h3m2 0h1m2 0h4m1 0h4m-25 1h7m2 0h2m2 0h1m2 0h10m6 0h1"/></svg></div>
+      <div class="body">
+        <p class="lead">ご感想を<br>お聞かせください</p>
+        <ol class="steps">
+          <li>カメラでQRを読み取る</li>
+          <li>かんたんな質問に答える</li>
+          <li>口コミの文章ができます</li>
+        </ol>
+        <p class="note">所要およそ60秒です。<br>投稿されるかどうかも、星の数も、<br>お客様のご判断でお決めください。</p>
+        <p class="brand">日本アンロックサービス株式会社</p>
+        <p class="url">japan-unlockservice.com/review-assist</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" width="30.0mm" height="30.0mm" viewBox="0 0 30.0 30.0"><path transform="scale(0.8108108108108109)" stroke="#000" d="M2 2.5h7m3 0h5m3 0h1m4 0h2m1 0h7m-33 1h1m5 0h1m4 0h1m1 0h2m4 0h1m2 0h1m1 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h2m1 0h1m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h3m2 0h2m4 0h1m5 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h3m3 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h6m1 0h2m2 0h1m2 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m1 0h3m1 0h1m1 0h1m-23 1h1m2 0h1m1 0h1m1 0h3m1 0h2m2 0h2m1 0h1m1 0h5m1 0h2m1 0h1m-30 1h2m4 0h2m1 0h2m1 0h2m1 0h2m4 0h2m1 0h1m3 0h3m-32 1h3m1 0h1m1 0h1m4 0h3m1 0h2m1 0h1m1 0h1m2 0h4m2 0h1m1 0h1m-32 1h2m1 0h2m4 0h1m3 0h1m3 0h3m1 0h1m1 0h1m1 0h1m5 0h1m-31 1h4m1 0h2m1 0h1m1 0h3m1 0h1m2 0h1m2 0h1m2 0h3m1 0h2m1 0h1m-30 1h1m1 0h1m2 0h1m2 0h1m3 0h1m2 0h2m4 0h1m1 0h1m1 0h1m2 0h1m-30 1h1m2 0h5m1 0h2m1 0h2m1 0h2m2 0h2m1 0h1m1 0h2m3 0h2m-30 1h4m2 0h2m6 0h1m1 0h1m2 0h1m2 0h3m-27 1h1m1 0h1m1 0h3m1 0h3m2 0h2m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m-32 1h6m1 0h2m1 0h5m1 0h2m3 0h1m1 0h1m1 0h1m3 0h3m-32 1h1m3 0h1m1 0h1m2 0h2m1 0h7m1 0h2m1 0h1m1 0h3m1 0h1m1 0h1m-25 1h4m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m4 0h1m-31 1h2m1 0h3m1 0h2m1 0h2m3 0h1m1 0h4m3 0h1m1 0h2m2 0h1m-33 1h6m4 0h1m1 0h3m6 0h1m1 0h1m3 0h1m1 0h3m-30 1h1m1 0h1m1 0h3m1 0h2m2 0h1m1 0h1m3 0h1m2 0h2m1 0h1m4 0h1m-29 1h1m1 0h1m1 0h2m2 0h1m2 0h1m1 0h2m1 0h1m1 0h4m1 0h4m2 0h1m-33 1h5m1 0h3m2 0h2m1 0h2m1 0h6m1 0h5m-21 1h1m2 0h1m4 0h1m6 0h2m3 0h1m1 0h1m-31 1h7m3 0h6m2 0h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m2 0h1m1 0h2m3 0h1m1 0h4m2 0h1m3 0h1m3 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h1m4 0h2m1 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h2m2 0h6m2 0h4m1 0h4m1 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m2 0h5m1 0h2m1 0h1m2 0h5m-31 1h1m5 0h1m1 0h3m2 0h1m2 0h4m1 0h4m-25 1h7m2 0h2m2 0h1m2 0h10m6 0h1"/></svg></div>
+      <div class="body">
+        <p class="lead">ご感想を<br>お聞かせください</p>
+        <ol class="steps">
+          <li>カメラでQRを読み取る</li>
+          <li>かんたんな質問に答える</li>
+          <li>口コミの文章ができます</li>
+        </ol>
+        <p class="note">所要およそ60秒です。<br>投稿されるかどうかも、星の数も、<br>お客様のご判断でお決めください。</p>
+        <p class="brand">日本アンロックサービス株式会社</p>
+        <p class="url">japan-unlockservice.com/review-assist</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" width="30.0mm" height="30.0mm" viewBox="0 0 30.0 30.0"><path transform="scale(0.8108108108108109)" stroke="#000" d="M2 2.5h7m3 0h5m3 0h1m4 0h2m1 0h7m-33 1h1m5 0h1m4 0h1m1 0h2m4 0h1m2 0h1m1 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h2m1 0h1m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h3m2 0h2m4 0h1m5 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h3m3 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h6m1 0h2m2 0h1m2 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m1 0h3m1 0h1m1 0h1m-23 1h1m2 0h1m1 0h1m1 0h3m1 0h2m2 0h2m1 0h1m1 0h5m1 0h2m1 0h1m-30 1h2m4 0h2m1 0h2m1 0h2m1 0h2m4 0h2m1 0h1m3 0h3m-32 1h3m1 0h1m1 0h1m4 0h3m1 0h2m1 0h1m1 0h1m2 0h4m2 0h1m1 0h1m-32 1h2m1 0h2m4 0h1m3 0h1m3 0h3m1 0h1m1 0h1m1 0h1m5 0h1m-31 1h4m1 0h2m1 0h1m1 0h3m1 0h1m2 0h1m2 0h1m2 0h3m1 0h2m1 0h1m-30 1h1m1 0h1m2 0h1m2 0h1m3 0h1m2 0h2m4 0h1m1 0h1m1 0h1m2 0h1m-30 1h1m2 0h5m1 0h2m1 0h2m1 0h2m2 0h2m1 0h1m1 0h2m3 0h2m-30 1h4m2 0h2m6 0h1m1 0h1m2 0h1m2 0h3m-27 1h1m1 0h1m1 0h3m1 0h3m2 0h2m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m-32 1h6m1 0h2m1 0h5m1 0h2m3 0h1m1 0h1m1 0h1m3 0h3m-32 1h1m3 0h1m1 0h1m2 0h2m1 0h7m1 0h2m1 0h1m1 0h3m1 0h1m1 0h1m-25 1h4m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m4 0h1m-31 1h2m1 0h3m1 0h2m1 0h2m3 0h1m1 0h4m3 0h1m1 0h2m2 0h1m-33 1h6m4 0h1m1 0h3m6 0h1m1 0h1m3 0h1m1 0h3m-30 1h1m1 0h1m1 0h3m1 0h2m2 0h1m1 0h1m3 0h1m2 0h2m1 0h1m4 0h1m-29 1h1m1 0h1m1 0h2m2 0h1m2 0h1m1 0h2m1 0h1m1 0h4m1 0h4m2 0h1m-33 1h5m1 0h3m2 0h2m1 0h2m1 0h6m1 0h5m-21 1h1m2 0h1m4 0h1m6 0h2m3 0h1m1 0h1m-31 1h7m3 0h6m2 0h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m2 0h1m1 0h2m3 0h1m1 0h4m2 0h1m3 0h1m3 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h1m4 0h2m1 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h2m2 0h6m2 0h4m1 0h4m1 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m2 0h5m1 0h2m1 0h1m2 0h5m-31 1h1m5 0h1m1 0h3m2 0h1m2 0h4m1 0h4m-25 1h7m2 0h2m2 0h1m2 0h10m6 0h1"/></svg></div>
+      <div class="body">
+        <p class="lead">ご感想を<br>お聞かせください</p>
+        <ol class="steps">
+          <li>カメラでQRを読み取る</li>
+          <li>かんたんな質問に答える</li>
+          <li>口コミの文章ができます</li>
+        </ol>
+        <p class="note">所要およそ60秒です。<br>投稿されるかどうかも、星の数も、<br>お客様のご判断でお決めください。</p>
+        <p class="brand">日本アンロックサービス株式会社</p>
+        <p class="url">japan-unlockservice.com/review-assist</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" width="30.0mm" height="30.0mm" viewBox="0 0 30.0 30.0"><path transform="scale(0.8108108108108109)" stroke="#000" d="M2 2.5h7m3 0h5m3 0h1m4 0h2m1 0h7m-33 1h1m5 0h1m4 0h1m1 0h2m4 0h1m2 0h1m1 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h2m1 0h1m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h3m2 0h2m4 0h1m5 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h3m3 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h6m1 0h2m2 0h1m2 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m1 0h3m1 0h1m1 0h1m-23 1h1m2 0h1m1 0h1m1 0h3m1 0h2m2 0h2m1 0h1m1 0h5m1 0h2m1 0h1m-30 1h2m4 0h2m1 0h2m1 0h2m1 0h2m4 0h2m1 0h1m3 0h3m-32 1h3m1 0h1m1 0h1m4 0h3m1 0h2m1 0h1m1 0h1m2 0h4m2 0h1m1 0h1m-32 1h2m1 0h2m4 0h1m3 0h1m3 0h3m1 0h1m1 0h1m1 0h1m5 0h1m-31 1h4m1 0h2m1 0h1m1 0h3m1 0h1m2 0h1m2 0h1m2 0h3m1 0h2m1 0h1m-30 1h1m1 0h1m2 0h1m2 0h1m3 0h1m2 0h2m4 0h1m1 0h1m1 0h1m2 0h1m-30 1h1m2 0h5m1 0h2m1 0h2m1 0h2m2 0h2m1 0h1m1 0h2m3 0h2m-30 1h4m2 0h2m6 0h1m1 0h1m2 0h1m2 0h3m-27 1h1m1 0h1m1 0h3m1 0h3m2 0h2m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m-32 1h6m1 0h2m1 0h5m1 0h2m3 0h1m1 0h1m1 0h1m3 0h3m-32 1h1m3 0h1m1 0h1m2 0h2m1 0h7m1 0h2m1 0h1m1 0h3m1 0h1m1 0h1m-25 1h4m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m4 0h1m-31 1h2m1 0h3m1 0h2m1 0h2m3 0h1m1 0h4m3 0h1m1 0h2m2 0h1m-33 1h6m4 0h1m1 0h3m6 0h1m1 0h1m3 0h1m1 0h3m-30 1h1m1 0h1m1 0h3m1 0h2m2 0h1m1 0h1m3 0h1m2 0h2m1 0h1m4 0h1m-29 1h1m1 0h1m1 0h2m2 0h1m2 0h1m1 0h2m1 0h1m1 0h4m1 0h4m2 0h1m-33 1h5m1 0h3m2 0h2m1 0h2m1 0h6m1 0h5m-21 1h1m2 0h1m4 0h1m6 0h2m3 0h1m1 0h1m-31 1h7m3 0h6m2 0h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m2 0h1m1 0h2m3 0h1m1 0h4m2 0h1m3 0h1m3 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h1m4 0h2m1 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h2m2 0h6m2 0h4m1 0h4m1 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m2 0h5m1 0h2m1 0h1m2 0h5m-31 1h1m5 0h1m1 0h3m2 0h1m2 0h4m1 0h4m-25 1h7m2 0h2m2 0h1m2 0h10m6 0h1"/></svg></div>
+      <div class="body">
+        <p class="lead">ご感想を<br>お聞かせください</p>
+        <ol class="steps">
+          <li>カメラでQRを読み取る</li>
+          <li>かんたんな質問に答える</li>
+          <li>口コミの文章ができます</li>
+        </ol>
+        <p class="note">所要およそ60秒です。<br>投稿されるかどうかも、星の数も、<br>お客様のご判断でお決めください。</p>
+        <p class="brand">日本アンロックサービス株式会社</p>
+        <p class="url">japan-unlockservice.com/review-assist</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" width="30.0mm" height="30.0mm" viewBox="0 0 30.0 30.0"><path transform="scale(0.8108108108108109)" stroke="#000" d="M2 2.5h7m3 0h5m3 0h1m4 0h2m1 0h7m-33 1h1m5 0h1m4 0h1m1 0h2m4 0h1m2 0h1m1 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h2m1 0h1m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h3m2 0h2m4 0h1m5 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h3m3 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h6m1 0h2m2 0h1m2 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m1 0h3m1 0h1m1 0h1m-23 1h1m2 0h1m1 0h1m1 0h3m1 0h2m2 0h2m1 0h1m1 0h5m1 0h2m1 0h1m-30 1h2m4 0h2m1 0h2m1 0h2m1 0h2m4 0h2m1 0h1m3 0h3m-32 1h3m1 0h1m1 0h1m4 0h3m1 0h2m1 0h1m1 0h1m2 0h4m2 0h1m1 0h1m-32 1h2m1 0h2m4 0h1m3 0h1m3 0h3m1 0h1m1 0h1m1 0h1m5 0h1m-31 1h4m1 0h2m1 0h1m1 0h3m1 0h1m2 0h1m2 0h1m2 0h3m1 0h2m1 0h1m-30 1h1m1 0h1m2 0h1m2 0h1m3 0h1m2 0h2m4 0h1m1 0h1m1 0h1m2 0h1m-30 1h1m2 0h5m1 0h2m1 0h2m1 0h2m2 0h2m1 0h1m1 0h2m3 0h2m-30 1h4m2 0h2m6 0h1m1 0h1m2 0h1m2 0h3m-27 1h1m1 0h1m1 0h3m1 0h3m2 0h2m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m-32 1h6m1 0h2m1 0h5m1 0h2m3 0h1m1 0h1m1 0h1m3 0h3m-32 1h1m3 0h1m1 0h1m2 0h2m1 0h7m1 0h2m1 0h1m1 0h3m1 0h1m1 0h1m-25 1h4m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m4 0h1m-31 1h2m1 0h3m1 0h2m1 0h2m3 0h1m1 0h4m3 0h1m1 0h2m2 0h1m-33 1h6m4 0h1m1 0h3m6 0h1m1 0h1m3 0h1m1 0h3m-30 1h1m1 0h1m1 0h3m1 0h2m2 0h1m1 0h1m3 0h1m2 0h2m1 0h1m4 0h1m-29 1h1m1 0h1m1 0h2m2 0h1m2 0h1m1 0h2m1 0h1m1 0h4m1 0h4m2 0h1m-33 1h5m1 0h3m2 0h2m1 0h2m1 0h6m1 0h5m-21 1h1m2 0h1m4 0h1m6 0h2m3 0h1m1 0h1m-31 1h7m3 0h6m2 0h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m2 0h1m1 0h2m3 0h1m1 0h4m2 0h1m3 0h1m3 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h1m4 0h2m1 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h2m2 0h6m2 0h4m1 0h4m1 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m2 0h5m1 0h2m1 0h1m2 0h5m-31 1h1m5 0h1m1 0h3m2 0h1m2 0h4m1 0h4m-25 1h7m2 0h2m2 0h1m2 0h10m6 0h1"/></svg></div>
+      <div class="body">
+        <p class="lead">ご感想を<br>お聞かせください</p>
+        <ol class="steps">
+          <li>カメラでQRを読み取る</li>
+          <li>かんたんな質問に答える</li>
+          <li>口コミの文章ができます</li>
+        </ol>
+        <p class="note">所要およそ60秒です。<br>投稿されるかどうかも、星の数も、<br>お客様のご判断でお決めください。</p>
+        <p class="brand">日本アンロックサービス株式会社</p>
+        <p class="url">japan-unlockservice.com/review-assist</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" width="30.0mm" height="30.0mm" viewBox="0 0 30.0 30.0"><path transform="scale(0.8108108108108109)" stroke="#000" d="M2 2.5h7m3 0h5m3 0h1m4 0h2m1 0h7m-33 1h1m5 0h1m4 0h1m1 0h2m4 0h1m2 0h1m1 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h2m1 0h1m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h3m2 0h2m4 0h1m5 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h3m3 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h6m1 0h2m2 0h1m2 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m1 0h3m1 0h1m1 0h1m-23 1h1m2 0h1m1 0h1m1 0h3m1 0h2m2 0h2m1 0h1m1 0h5m1 0h2m1 0h1m-30 1h2m4 0h2m1 0h2m1 0h2m1 0h2m4 0h2m1 0h1m3 0h3m-32 1h3m1 0h1m1 0h1m4 0h3m1 0h2m1 0h1m1 0h1m2 0h4m2 0h1m1 0h1m-32 1h2m1 0h2m4 0h1m3 0h1m3 0h3m1 0h1m1 0h1m1 0h1m5 0h1m-31 1h4m1 0h2m1 0h1m1 0h3m1 0h1m2 0h1m2 0h1m2 0h3m1 0h2m1 0h1m-30 1h1m1 0h1m2 0h1m2 0h1m3 0h1m2 0h2m4 0h1m1 0h1m1 0h1m2 0h1m-30 1h1m2 0h5m1 0h2m1 0h2m1 0h2m2 0h2m1 0h1m1 0h2m3 0h2m-30 1h4m2 0h2m6 0h1m1 0h1m2 0h1m2 0h3m-27 1h1m1 0h1m1 0h3m1 0h3m2 0h2m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m-32 1h6m1 0h2m1 0h5m1 0h2m3 0h1m1 0h1m1 0h1m3 0h3m-32 1h1m3 0h1m1 0h1m2 0h2m1 0h7m1 0h2m1 0h1m1 0h3m1 0h1m1 0h1m-25 1h4m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m4 0h1m-31 1h2m1 0h3m1 0h2m1 0h2m3 0h1m1 0h4m3 0h1m1 0h2m2 0h1m-33 1h6m4 0h1m1 0h3m6 0h1m1 0h1m3 0h1m1 0h3m-30 1h1m1 0h1m1 0h3m1 0h2m2 0h1m1 0h1m3 0h1m2 0h2m1 0h1m4 0h1m-29 1h1m1 0h1m1 0h2m2 0h1m2 0h1m1 0h2m1 0h1m1 0h4m1 0h4m2 0h1m-33 1h5m1 0h3m2 0h2m1 0h2m1 0h6m1 0h5m-21 1h1m2 0h1m4 0h1m6 0h2m3 0h1m1 0h1m-31 1h7m3 0h6m2 0h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m2 0h1m1 0h2m3 0h1m1 0h4m2 0h1m3 0h1m3 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h2m1 0h1m4 0h2m1 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h2m2 0h6m2 0h4m1 0h4m1 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m2 0h5m1 0h2m1 0h1m2 0h5m-31 1h1m5 0h1m1 0h3m2 0h1m2 0h4m1 0h4m-25 1h7m2 0h2m2 0h1m2 0h10m6 0h1"/></svg></div>
+      <div class="body">
+        <p class="lead">ご感想を<br>お聞かせください</p>
+        <ol class="steps">
+          <li>カメラでQRを読み取る</li>
+          <li>かんたんな質問に答える</li>
+          <li>口コミの文章ができます</li>
+        </ol>
+        <p class="note">所要およそ60秒です。<br>投稿されるかどうかも、星の数も、<br>お客様のご判断でお決めください。</p>
+        <p class="brand">日本アンロックサービス株式会社</p>
+        <p class="url">japan-unlockservice.com/review-assist</p>
+      </div>
+    </div>
+</div>
+
+</body>
+</html>
