@@ -327,9 +327,9 @@ button{font:inherit;font-family:"Zen Kaku Gothic New","Hiragino Sans",sans-serif
       </div>
 
       <ol class="steps-todo">
-        <li><span class="n">1</span><span>「文章をコピー」を押す</span></li>
-        <li><span class="n">2</span><span>「Googleの投稿画面を開く」を押す</span></li>
-        <li><span class="n">3</span><span>入力欄を長押しして貼り付け、星を選んで投稿</span></li>
+        <li><span class="n">1</span><span>下のボタンを押す（文章がコピーされ、Googleの投稿画面が開きます）</span></li>
+        <li><span class="n">2</span><span>入力欄を長押しして貼り付ける</span></li>
+        <li><span class="n">3</span><span>星を選んで投稿</span></li>
       </ol>
 
       <hr class="divider" id="contactDivider" hidden>
@@ -587,7 +587,7 @@ function render(){
   nextBtn.disabled = !canAdvance();
   nextBtn.textContent =
     step === 5 ? "口コミの下書きを作る" :
-    step === LAST_STEP ? "文章をコピー" : "次へ";
+    step === LAST_STEP ? "コピーして投稿画面を開く" : "次へ";
   window.scrollTo({ top: 0, behavior: "instant" });
 }
 
@@ -595,9 +595,9 @@ document.getElementById("form").addEventListener("change", () => {
   nextBtn.disabled = !canAdvance();
 });
 
-nextBtn.addEventListener("click", async () => {
+nextBtn.addEventListener("click", () => {
   if(step === LAST_STEP){
-    await copyAndGo();
+    copyAndGo();
     return;
   }
   if(!canAdvance()) return;
@@ -618,20 +618,40 @@ function toast(msg){
   setTimeout(() => t.classList.remove("show"), 2200);
 }
 
-async function copyAndGo(){
+/* 選択して execCommand で写す、古い方式のコピー。
+   クリップボードAPIが使えない環境（httpsでない等）の保険。 */
+function legacyCopy(){
+  draftBox.focus();
+  draftBox.setSelectionRange(0, draftBox.value.length);
+  try{ return document.execCommand("copy"); }catch(e){ return false; }
+}
+
+/* 1回のタップで「コピー」と「投稿画面を開く」を両方行う。
+   await を挟むとユーザー操作の文脈が切れ、一部のブラウザで
+   window.open がポップアップとしてブロックされるため、
+   クリップボードの完了を待たずにそのまま画面を開く。 */
+function copyAndGo(){
   const text = draftBox.value.trim();
   if(!text) return;
-  let copied = false;
-  try{
-    await navigator.clipboard.writeText(text);
-    copied = true;
-  }catch(e){
-    draftBox.focus();
-    draftBox.setSelectionRange(0, draftBox.value.length);
-    try{ copied = document.execCommand("copy"); }catch(e2){ copied = false; }
+
+  let ok = true;
+  const p = navigator.clipboard && navigator.clipboard.writeText(text);
+  if(p && p.catch){
+    p.catch(() => {
+      if(!legacyCopy()) toast("文章を長押しでコピーしてください");
+    });
+  }else{
+    ok = legacyCopy();
   }
-  toast(copied ? "コピーしました。投稿画面で貼り付けてください" : "文章を長押しでコピーしてください");
-  nextBtn.textContent = "Googleの投稿画面を開く";
+
+  toast(ok ? "コピーしました。投稿画面で貼り付けてください" : "文章を長押しでコピーしてください");
+
+  window.open(GOOGLE_REVIEW_URL, "_blank", "noopener");
+
+  /* noopener 付きの window.open は常に null を返すため、開けたかどうかは
+     判定できない。ブロックされた場合と、投稿画面から戻ってきた場合の
+     どちらにも対応できるよう、ボタンは開き直し用として残しておく。 */
+  nextBtn.textContent = "もう一度、投稿画面を開く";
   nextBtn.onclick = () => window.open(GOOGLE_REVIEW_URL, "_blank", "noopener");
 }
 
