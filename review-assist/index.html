@@ -213,6 +213,15 @@ button{font:inherit;font-family:"Zen Kaku Gothic New","Hiragino Sans",sans-serif
 :root[data-theme="dark"] .steps-todo .n,
 :root:not([data-theme="light"]) .steps-todo .n{color:#15171B}
 
+.fallback{
+  margin:14px 0 0;
+  font-size:12.5px;
+  color:var(--ink-2);
+  text-align:center;
+}
+.fallback a{color:var(--indigo);text-decoration:underline;text-underline-offset:3px}
+.fallback a:focus-visible{outline:2px solid var(--indigo);outline-offset:2px}
+
 .divider{height:1px;background:var(--line);margin:26px 0 18px;border:0}
 .alt{font-size:13.5px;color:var(--ink-2);text-align:center;line-height:1.8}
 .alt a{color:var(--indigo);text-decoration:underline;text-underline-offset:3px}
@@ -332,6 +341,10 @@ button{font:inherit;font-family:"Zen Kaku Gothic New","Hiragino Sans",sans-serif
         <li><span class="n">3</span><span>星を選んで投稿</span></li>
       </ol>
 
+      <p class="fallback">
+        投稿画面が開かないときは<a href="#" id="directLink">こちらから開けます</a>
+      </p>
+
       <hr class="divider" id="contactDivider" hidden>
       <p class="alt" id="contactBlock" hidden>
         気になった点・至らなかった点がありましたら、<br>
@@ -365,6 +378,8 @@ const CONTACT_URL   = "mailto:key-support24@japan-unlockservice.com"
                     + "?subject=" + encodeURIComponent("対応についてのご意見・ご要望");
 const CONTACT_LABEL = "メールを送る";
 /* ──────────────────────────────────────────────────── */
+
+document.getElementById("directLink").href = GOOGLE_REVIEW_URL;
 
 if(CONTACT_URL){
   const link = document.getElementById("contactLink");
@@ -627,32 +642,38 @@ function legacyCopy(){
 }
 
 /* 1回のタップで「コピー」と「投稿画面を開く」を両方行う。
-   await を挟むとユーザー操作の文脈が切れ、一部のブラウザで
-   window.open がポップアップとしてブロックされるため、
-   クリップボードの完了を待たずにそのまま画面を開く。 */
-function copyAndGo(){
+
+   新しいタブ（window.open）ではなく、同じタブで遷移する。
+   window.open は、埋め込み表示やポップアップブロッカーの下では
+   黙ってブロックされ、何も起きないように見えてしまうため。
+   同じタブへの遷移がブロックされることはない。
+
+   コピーの完了を待ってから遷移する。同じタブへの遷移は
+   ユーザー操作の文脈を必要としないので待って問題がなく、
+   待たずに遷移するとコピーが中断される可能性がある。 */
+async function copyAndGo(){
   const text = draftBox.value.trim();
   if(!text) return;
 
-  let ok = true;
-  const p = navigator.clipboard && navigator.clipboard.writeText(text);
-  if(p && p.catch){
-    p.catch(() => {
-      if(!legacyCopy()) toast("文章を長押しでコピーしてください");
-    });
-  }else{
+  let ok = false;
+  try{
+    await navigator.clipboard.writeText(text);
+    ok = true;
+  }catch(e){
     ok = legacyCopy();
   }
 
-  toast(ok ? "コピーしました。投稿画面で貼り付けてください" : "文章を長押しでコピーしてください");
+  if(!ok){
+    /* コピーできなかったまま遷移すると、貼り付けるものがない状態で
+       投稿画面に着いてしまう。手動でコピーしてもらってから進む。 */
+    toast("文章を長押しでコピーしてから、もう一度押してください");
+    nextBtn.textContent = "投稿画面を開く";
+    nextBtn.onclick = () => { window.location.href = GOOGLE_REVIEW_URL; };
+    return;
+  }
 
-  window.open(GOOGLE_REVIEW_URL, "_blank", "noopener");
-
-  /* noopener 付きの window.open は常に null を返すため、開けたかどうかは
-     判定できない。ブロックされた場合と、投稿画面から戻ってきた場合の
-     どちらにも対応できるよう、ボタンは開き直し用として残しておく。 */
-  nextBtn.textContent = "もう一度、投稿画面を開く";
-  nextBtn.onclick = () => window.open(GOOGLE_REVIEW_URL, "_blank", "noopener");
+  toast("コピーしました。投稿画面で貼り付けてください");
+  window.location.href = GOOGLE_REVIEW_URL;
 }
 
 render();
