@@ -332,11 +332,11 @@ button{font:inherit;font-family:"Zen Kaku Gothic New","Hiragino Sans",sans-serif
         <li><span class="n">3</span><span>入力欄を長押しして貼り付け、星を選んで投稿</span></li>
       </ol>
 
-      <hr class="divider">
-      <p class="alt">
+      <hr class="divider" id="contactDivider" hidden>
+      <p class="alt" id="contactBlock" hidden>
         気になった点・至らなかった点がありましたら、<br>
         投稿の前にぜひ直接お聞かせください。<br>
-        <a href="tel:0000000000" id="telLink">お電話でのご連絡はこちら</a>
+        <a href="#" id="contactLink"></a>
       </p>
     </section>
 
@@ -353,12 +353,25 @@ button{font:inherit;font-family:"Zen Kaku Gothic New","Hiragino Sans",sans-serif
 <div class="toast" id="toast" role="status" aria-live="polite">コピーしました</div>
 
 <script>
-/* ── 設置時に書き換える3か所 ───────────────────────────── */
+/* ── 設置時の設定 ─────────────────────────────────────
+   CONTACT_URL は3通りの書き方ができる。空のままにすると
+   「直接ご連絡ください」の案内自体が非表示になる。
+     メール      "mailto:info@example.co.jp"
+     フォーム    "https://forms.gle/xxxxxxxx"
+     電話        "tel:0312345678"
+   ──────────────────────────────────────────────────── */
 const GOOGLE_REVIEW_URL = "https://g.page/r/CYvhE1uWUYeMECE/review";
-const CONTACT_TEL = "0000000000";
+const CONTACT_URL   = "";
+const CONTACT_LABEL = "メールでのご連絡はこちら";
 /* ──────────────────────────────────────────────────── */
 
-document.getElementById("telLink").href = "tel:" + CONTACT_TEL;
+if(CONTACT_URL){
+  const link = document.getElementById("contactLink");
+  link.href = CONTACT_URL;
+  link.textContent = CONTACT_LABEL;
+  document.getElementById("contactBlock").hidden = false;
+  document.getElementById("contactDivider").hidden = false;
+}
 
 const LAST_STEP = 6;
 let step = 1;
@@ -386,6 +399,7 @@ function answers(){
   };
 }
 
+/* ── 文体A：ていねい・落ち着いた口調 ───────────────────── */
 const TROUBLE = {
   lost:    ["鍵をなくしてしまい","出先で鍵を落としてしまい","鍵が見当たらなくなり"],
   lockout: ["鍵を部屋に置いたまま締め出されてしまい","うっかり鍵を中に置いたまま外に出てしまい"],
@@ -422,16 +436,59 @@ const GOOD = {
 };
 const ONE_TAIL = ["のがありがたかったです。","のが本当に助かりました。","のが印象に残っています。"];
 const LIST_TAIL = ["ことが、とてもありがたかったです。","ことが、何より安心できました。","ことが強く印象に残りました。"];
+/* ── 文体B：やわらかい・話し言葉に近い口調 ────────────────
+   同じ回答内容でも、選ばれやすい文体には個人差があるため用意している。
+   内容（回答した事実）は文体Aとまったく同じで、言い回しだけが変わる。 */
+const TROUBLE_S = {
+  lost:    ["鍵をなくしてしまって","出先で鍵を落としてしまって"],
+  lockout: ["鍵を部屋に置いたまま締め出されてしまって","うっかり締め出されてしまって"],
+  broken:  ["鍵が回らなくなってしまって","鍵が抜けなくなってしまって"],
+  car:     ["車の鍵が開かなくなってしまって","車の鍵のトラブルで"],
+  other:   ["鍵のことで困ってしまって","急な鍵のトラブルで"]
+};
+const INTRO_S = [
+  (t,w) => `${w}${t}、もうどうしようとパニックでした。`,
+  (t,w) => `${w}${t}、泣きそうになりながら電話しました。`,
+  (t,w) => `${w}${t}、頭が真っ白になってしまいました。`
+];
+const SPEED_S = {
+  fast:   ["電話してから30分くらいで来てくださって、びっくりするくらい早かったです。","思っていたよりずっと早く来てくださいました。"],
+  normal: ["1時間ほどで駆けつけてくださいました。","電話から1時間くらいで来てくださいました。"],
+  waited: ["少し待ちましたが、途中でご連絡をいただけたので不安になりませんでした。","待っている間もこまめに知らせてくださったので、安心して待てました。"],
+  skip:   [""]
+};
+const GOOD_S = {
+  latenight:["こんな時間なのに嫌な顔ひとつせず対応してくださって","深夜なのに来てくださって"],
+  quick:    ["作業もあっという間で","開けてもらうまでが本当にあっという間で"],
+  price:    ["料金も最初にはっきり教えてくださって","お金のことも先にきちんと教えてもらえて"],
+  staff:    ["スタッフさんがとても感じのいい方で","対応してくださった方がすごく優しくて"],
+  nodamage: ["鍵も壊さずに開けてくださって","大事な鍵を壊さずに済んで"],
+  phone:    ["最初の電話からとても優しくて","電話の時点で落ち着いて聞いてくださって"],
+  explain:  ["作業の前にちゃんと説明してくださって","何をするのか先に教えてくださって"],
+  payment:  ["支払い方法も選べて","現金以外でも払えて"]
+};
+const GOOD_S_TAIL = ["本当に助かりました。","すごく安心できました。","本当にありがたかったです。"];
+const CHEAPER_S = [
+  "お値段だけ、もう少しお安いと嬉しいなと思いました。",
+  "欲を言えば、もう少しお安いと嬉しかったです。"
+];
+const CLOSE_S = [
+  "同じように困っている方がいたら、ぜひおすすめしたいです。",
+  "またなにかあったらお願いしたいです。本当にありがとうございました。",
+  "こんなに親切にしていただけると思っていなかったので、感謝しかないです。"
+];
+
 /* 「もう少し安いと嬉しい」は褒め言葉の列挙には混ぜず、独立した一文にする */
 const CHEAPER = [
   "料金については、もう少し安いと嬉しかったです。",
   "欲を言えば、料金がもう少し安いと助かりました。",
   "料金面だけは、もう少し安いと嬉しいなと思いました。"
 ];
-const CLOSE = {
-  plain: ["同じように困っている方には安心しておすすめできると思います。","鍵のことで困ったら、次もこちらにお願いしようと思います。"],
-  warm:  ["またもしもの時があればお願いしたいです。ありがとうございました。","突然のことで不安でしたが、お願いして本当によかったです。ありがとうございました。"]
-};
+const CLOSE = [
+  "同じように困っている方には安心しておすすめできると思います。",
+  "鍵のことで困ったら、次もこちらにお願いしようと思います。",
+  "またもしもの時があればお願いしたいです。ありがとうございました。"
+];
 
 /* 4つ以上選ばれた場合は、画面の並び順（上にあるものほど優先）で文案に採用する */
 function joinGood(list, max){
@@ -442,29 +499,40 @@ function joinGood(list, max){
   return chosen.join("こと、") + "こと、そして" + last + pick(LIST_TAIL);
 }
 
-/* 文案は3つとも構造を変える：短め／しっかり／気持ちを添えて */
+/* 文体Bは「〜てくださって」で自然につながるので、読点でつないで締める */
+function joinGoodSoft(list, max){
+  const chosen = list.slice(0, max).map(k => pick(GOOD_S[k]));
+  if(!chosen.length) return "";
+  return chosen.join("、") + "、" + pick(GOOD_S_TAIL);
+}
+
+/* 文案は3つとも構造・文体を変える：短め／しっかり／やわらかめ */
 function buildDraft(a, style){
+  const soft = style === "soft";
   const parts = [];
-  parts.push(pick(INTRO)(pick(TROUBLE[a.trouble] || TROUBLE.other), pick(TIME[a.time] || [""])));
+
+  const tr = soft ? (TROUBLE_S[a.trouble] || TROUBLE_S.other) : (TROUBLE[a.trouble] || TROUBLE.other);
+  const intro = soft ? INTRO_S : INTRO;
+  parts.push(pick(intro)(pick(tr), pick(TIME[a.time] || [""])));
 
   if(style !== "short"){
-    const sp = pick(SPEED[a.speed] || SPEED.skip);
+    const sp = pick((soft ? SPEED_S : SPEED)[a.speed] || SPEED.skip);
     if(sp) parts.push(sp);
   }
 
-  const g = joinGood(a.good, style === "short" ? 2 : 3);
+  const g = soft ? joinGoodSoft(a.good, 3) : joinGood(a.good, style === "short" ? 2 : 3);
   if(g) parts.push(g);
 
-  if(a.cheaper) parts.push(pick(CHEAPER));
+  if(a.cheaper) parts.push(pick(soft ? CHEAPER_S : CHEAPER));
 
   if(a.free && style !== "short") parts.push(a.free.replace(/\s+/g, " "));
 
-  parts.push(pick(style === "warm" ? CLOSE.warm : CLOSE.plain));
+  parts.push(pick(soft ? CLOSE_S : CLOSE));
   return parts.join("");
 }
 
 function uniqueDrafts(a){
-  const styles = ["short", "full", "warm"];
+  const styles = ["short", "full", "soft"];
   const out = [];
   styles.forEach(s => {
     let d = "";
@@ -477,7 +545,7 @@ function uniqueDrafts(a){
   return out;
 }
 
-const TAGS = ["文案1　短め", "文案2　しっかり", "文案3　気持ちを添えて"];
+const TAGS = ["文案1　短め", "文案2　しっかり", "文案3　やわらかめ"];
 
 function renderDrafts(){
   drafts = uniqueDrafts(answers());
