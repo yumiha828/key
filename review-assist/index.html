@@ -145,6 +145,12 @@ legend,.step-title{font-size:19px;margin:0 0 4px;padding:0}
 .opt.multi:has(input:checked) .mark::after{background:none;border-left-color:var(--surface);border-bottom-color:var(--surface)}
 .opt:has(input:focus-visible){outline:2px solid var(--brass);outline-offset:2px}
 
+.sublabel{
+  font-size:13px;color:var(--ink-2);
+  margin:22px 0 10px;padding-top:18px;
+  border-top:1px solid var(--line);
+}
+
 textarea{
   width:100%;font:inherit;color:var(--ink);
   background:var(--surface);
@@ -282,14 +288,19 @@ button{font:inherit;font-family:"Zen Kaku Gothic New","Hiragino Sans",sans-serif
         <legend>よかったと感じた点はありますか？</legend>
         <p class="hint">いくつでも選べます。当てはまらないものは選ばないでください。</p>
         <div class="opts" data-name="good">
-          <label class="opt multi"><input type="checkbox" name="good" value="staff"><span class="mark"></span>スタッフの感じがよかった</label>
           <label class="opt multi"><input type="checkbox" name="good" value="latenight"><span class="mark"></span>深夜でも対応してくれた</label>
           <label class="opt multi"><input type="checkbox" name="good" value="quick"><span class="mark"></span>作業が早かった</label>
+          <label class="opt multi"><input type="checkbox" name="good" value="price"><span class="mark"></span>料金が明確だった</label>
+          <label class="opt multi"><input type="checkbox" name="good" value="staff"><span class="mark"></span>スタッフの感じがよかった</label>
           <label class="opt multi"><input type="checkbox" name="good" value="nodamage"><span class="mark"></span>鍵を壊さずに開けてくれた</label>
           <label class="opt multi"><input type="checkbox" name="good" value="phone"><span class="mark"></span>電話での対応が丁寧だった</label>
           <label class="opt multi"><input type="checkbox" name="good" value="explain"><span class="mark"></span>作業前に説明してくれた</label>
-          <label class="opt multi"><input type="checkbox" name="good" value="price"><span class="mark"></span>料金が明確で、追加請求がなかった</label>
           <label class="opt multi"><input type="checkbox" name="good" value="payment"><span class="mark"></span>支払い方法を選べた</label>
+        </div>
+
+        <p class="sublabel">正直なところ、気になった点があれば</p>
+        <div class="opts">
+          <label class="opt multi"><input type="checkbox" name="candid" value="cheaper"><span class="mark"></span>もう少し安いと嬉しい</label>
         </div>
       </fieldset>
     </section>
@@ -343,7 +354,7 @@ button{font:inherit;font-family:"Zen Kaku Gothic New","Hiragino Sans",sans-serif
 
 <script>
 /* ── 設置時に書き換える3か所 ───────────────────────────── */
-const GOOGLE_REVIEW_URL = "https://search.google.com/local/writereview?placeid=REPLACE_WITH_PLACE_ID";
+const GOOGLE_REVIEW_URL = "https://g.page/r/CYvhE1uWUYeMECE/review";
 const CONTACT_TEL = "0000000000";
 /* ──────────────────────────────────────────────────── */
 
@@ -370,6 +381,7 @@ function answers(){
     time: one("time"),
     speed: one("speed"),
     good: [...document.querySelectorAll('input[name="good"]:checked')].map(i => i.value),
+    cheaper: !!document.querySelector('input[name="candid"][value="cheaper"]:checked'),
     free: document.getElementById("freeText").value.trim()
   };
 }
@@ -401,7 +413,7 @@ const SPEED = {
 const GOOD = {
   phone:    ["電話の時点で落ち着いて話を聞いてもらえた","最初の電話の対応がとても丁寧だった"],
   explain:  ["作業に入る前に手順と料金の説明があった","何をするのか先に説明してもらえた"],
-  price:    ["聞いていた金額のままで、あとから追加の請求もなかった","料金がはっきりしていて安心できた"],
+  price:    ["料金がはっきりしていて安心できた","金額が最初にはっきり示された","料金の説明が明確だった"],
   nodamage: ["鍵を壊さずに開けてもらえた","こちらの鍵を傷めずに対応してもらえた"],
   quick:    ["作業自体はあっという間だった","開けるまでが本当に早かった"],
   staff:    ["スタッフの方の感じがよかった","対応してくださった方が親切だった"],
@@ -410,18 +422,20 @@ const GOOD = {
 };
 const ONE_TAIL = ["のがありがたかったです。","のが本当に助かりました。","のが印象に残っています。"];
 const LIST_TAIL = ["ことが、とてもありがたかったです。","ことが、何より安心できました。","ことが強く印象に残りました。"];
+/* 「もう少し安いと嬉しい」は褒め言葉の列挙には混ぜず、独立した一文にする */
+const CHEAPER = [
+  "料金については、もう少し安いと嬉しかったです。",
+  "欲を言えば、料金がもう少し安いと助かりました。",
+  "料金面だけは、もう少し安いと嬉しいなと思いました。"
+];
 const CLOSE = {
   plain: ["同じように困っている方には安心しておすすめできると思います。","鍵のことで困ったら、次もこちらにお願いしようと思います。"],
   warm:  ["またもしもの時があればお願いしたいです。ありがとうございました。","突然のことで不安でしたが、お願いして本当によかったです。ありがとうございました。"]
 };
 
-/* 画面の並び順とは別に、文案へ入れる優先順位を持たせる。
-   4つ以上選ばれた場合、上位のものから文案に採用する。 */
-const DRAFT_PRIORITY = ["price","nodamage","latenight","quick","staff","phone","explain","payment"];
-
+/* 4つ以上選ばれた場合は、画面の並び順（上にあるものほど優先）で文案に採用する */
 function joinGood(list, max){
-  const ordered = [...list].sort((a,b) => DRAFT_PRIORITY.indexOf(a) - DRAFT_PRIORITY.indexOf(b));
-  const chosen = ordered.slice(0, max).map(k => pick(GOOD[k]));
+  const chosen = list.slice(0, max).map(k => pick(GOOD[k]));
   if(!chosen.length) return "";
   if(chosen.length === 1) return chosen[0] + pick(ONE_TAIL);
   const last = chosen.pop();
@@ -440,6 +454,8 @@ function buildDraft(a, style){
 
   const g = joinGood(a.good, style === "short" ? 2 : 3);
   if(g) parts.push(g);
+
+  if(a.cheaper) parts.push(pick(CHEAPER));
 
   if(a.free && style !== "short") parts.push(a.free.replace(/\s+/g, " "));
 
